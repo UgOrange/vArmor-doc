@@ -24,11 +24,10 @@ vArmor was created by the **Elkeid Team** of the endpoint security department at
 
 
 ## Architecture
-<img src="./img/architecture.png" width="600" />
-
+![image](./img/architecture.png)
 
 ## Prerequisites
-You can specify the enforcer through the `spec.policy.enforcer` field of policy objects ([VarmorPolicy](docs/usage_instructions.md#varmorpolicy)/[VarmorClusterPolicy](docs/usage_instructions.md#varmorclusterpolicy)). In addition, you can also use different enforcers individually or in combination, such as: AppArmorBPF, AppArmorSeccomp, AppArmorBPFSeccomp etc.
+You can specify the enforcer through the `spec.policy.enforcer` field of policy objects ([VarmorPolicy](usage_instructions#varmorpolicy)/[VarmorClusterPolicy](usage_instructions#varmorclusterpolicy)). In addition, you can also use different enforcers individually or in combination, such as: AppArmorBPF, AppArmorSeccomp, AppArmorBPFSeccomp etc.
 
 The prerequisites required by different enforcers are as shown in the following table.
 
@@ -43,12 +42,12 @@ The prerequisites required by different enforcers are as shown in the following 
 
 The vArmor policy can operate in five modes: **AlwaysAllow, RuntimeDefault, EnhanceProtect, BehaviorModeling and DefenseInDepth**. When the policy is running in **EnhanceProtect** mode, built-in rules and custom interfaces can be used to harden the container.
 
-For more information, please refer to [Policy Modes and Built-in Rules](docs/built_in_rules.md).
+For more information, please refer to [Policy Modes and Built-in Rules](built_in_rules).
 
 
 ## Quick start
 
-For more configuration options and detailed instructions, please refer to the [usage instructions](docs/usage_instructions.md). You can refer to the [examples](test/demo) to understand how to use the relevant features and write policies. You can also try using [policy-advisor](tools/policy-advisor/README.md) to generate a policy template, and then build the final policy based on it.
+For more configuration options and detailed instructions, please refer to the [usage instructions](usage_instructions). You can refer to the [examples](https://github.com/bytedance/vArmor/tree/main/test/demo) to understand how to use the relevant features and write policies. You can also try using [policy-advisor](policy_advisor) to generate a policy template, and then build the final policy based on it.
 
 ### Step 1. Fetch chart
 ```
@@ -102,7 +101,7 @@ helm uninstall varmor -n varmor
 
 
 ## The Performance Specification
-Please refer to this [documentation](docs/performance_specification.md).
+Please refer to this [documentation](performance_specification).
 
 
 ## License

@@ -1,0 +1,108 @@
+// src/pages/index.js
+
+import React from 'react';
+import clsx from 'clsx';
+import Layout from '@theme/Layout';
+import styles from './index.module.css';
+import Link from '@docusaurus/Link';
+
+function HomepageHeader() {
+  return (
+    <header className={clsx('hero', styles.heroBanner)}>
+      <div className="container">
+        <h1 className="hero__title">vArmor</h1>
+        <p className="hero__subtitle">
+          Cloud-native container sandbox system for Kubernetes security
+        </p>
+        <div className={styles.buttons}>
+          <Link
+            className="button button--primary button--lg"
+            to="https://github.com/bytedance/vArmor">
+            View on GitHub
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function Feature({ title, description }) {
+  return (
+    <div className={clsx('col col--4')}>
+      <div className="text--center padding-horiz--md">
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
+    </div>
+  );
+}
+
+function HomepageFeatures() {
+  return (
+    <section className={styles.features}>
+      <div className="container">
+        <div className="row">
+          <Feature
+            title="Enhanced Security"
+            description="Leverages Linux technologies like AppArmor, BPF, and Seccomp to isolate containers and reduce kernel attack surfaces."
+          />
+          <Feature
+            title="Kubernetes Native"
+            description="Integrates seamlessly with Kubernetes, providing powerful sandboxing mechanisms through custom CRDs."
+          />
+          <Feature
+            title="Quick Deployment"
+            description="Deploy vArmor quickly using Helm with built-in security models ready for immediate use."
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Home() {
+  return (
+    <Layout
+      title="vArmor - Container Security"
+      description="Cloud-native container sandbox system designed to enhance container isolation and security in Kubernetes">
+      <HomepageHeader />
+      <main>
+        <HomepageFeatures />
+        <section className="container">
+          <div className="row">
+            <div className="col col--12">
+              <h2>Quick Start</h2>
+              <pre>
+                <code>
+                  helm pull oci://elkeid-ap-southeast-1.cr.volces.com/varmor/varmor --version 0.5.11
+                  {'\n'}
+                  helm install varmor varmor-0.5.11.tgz --namespace varmor --create-namespace --set image.registry="elkeid-ap-southeast-1.cr.volces.com"
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+        <section className="container">
+          <div className="row">
+            <div className="col col--12">
+              <h2>License</h2>
+              <p>
+                vArmor is licensed under Apache 2.0. The eBPF code is located at vArmor-ebpf and is GPL-2.0 licensed.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section className="container">
+          <div className="row">
+            <div className="col col--12">
+              <h2>Credits</h2>
+              <p>
+                Uses cilium/ebpf for eBPF management. References parts of kyverno code by Nirmata.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </Layout>
+  );
+}

@@ -107,7 +107,7 @@ In this round of testing, we performed horizontal comparisons of two enforcers: 
 
 In addition, we also tested the Seccomp enforcer with the currently available four rules. This test is for reference only and is not used as a performance benchmark or comparison.
 
-The policy files used for the tests can be found in the [test/perf/policy](../test/perf/policy) directory.
+The policy files used for the tests can be found in the [test/perf/policy](https://github.com/bytedance/vArmor/tree/main/test/perf/policy) directory.
 
 #### Test Steps
 
@@ -120,7 +120,7 @@ We wrote a bash script to automate the testing process, which mainly completes t
 
 Specifically, for the Init Benchmark, BPF, and Seccomp modes, we used different Pod configurations and enabled `container.apparmor.security.beta.kubernetes.io/phoronix: unconfined` to ensure AppArmor was not enabled, avoiding the default AppArmor profile from affecting the test results.
 
-You can find the Pod definitions and Phoronix runtime configurations in the [test/perf/policy](../test/perf/policy) directory. The automation test script is also located in the [test/perf](../test/perf) directory. Additionally, we have written separate test scripts for sysbench and unixbench, which you can use if you are interested in conducting your own tests.
+You can find the Pod definitions and Phoronix runtime configurations in the [test/perf/policy](https://github.com/bytedance/vArmor/tree/main/test/perf/policy) directory. The automation test script is also located in the [test/perf](https://github.com/bytedance/vArmor/tree/main/test/perf) directory. Additionally, we have written separate test scripts for sysbench and unixbench, which you can use if you are interested in conducting your own tests.
 
 #### Test Results
 

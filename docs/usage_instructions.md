@@ -12,7 +12,7 @@ vArmor allows you to configure its functionality during installation using the h
 | `--set unloadAllAaProfiles.enabled=true` | Default: disabled. When enabled, all AppArmor profiles loaded by vArmor will be unloaded when the Agent exits.
 | `--set removeAllSeccompProfiles.enabled=true` | Default: disabled. When enabled, all Seccomp profiles created by vArmor will be unloaded when the Agent exits.
 | `--set "manager.args={--webhookMatchLabel=KEY=VALUE}"` | The default value is: `sandbox.varmor.org/enable=true`. vArmor will only enable sandbox protection for Workloads that contain this label. You can disable this feature by using `--set 'manager.args={--webhookMatchLabel=}'`.
-| `--set behaviorModeling.enabled=true` | Default: disabled. Experimental feature. Currently, only the AppArmor/Seccomp enforcer supports the BehaviorModeling mode. Please refer to the [BehaviorModeling Mode](behavior_modeling.md) for more details.
+| `--set behaviorModeling.enabled=true` | Default: disabled. Experimental feature. Currently, only the AppArmor/Seccomp enforcer supports the BehaviorModeling mode. Please refer to the [BehaviorModeling Mode](behavior_modeling) for more details.
 
 
 ## Usage
@@ -46,8 +46,8 @@ If you are using the AppArmor enforcer, follow these steps to uninstall vArmor:
 ## System Interface
 ### VarmorPolicy
 * Namespace-scoped resource, consistent with the namespace of the protected object.
-* The VarmorPolicy interface details can be found in [Interface Instructions](interface_instructions.md).
-* The definition of VarmorPolicy can be found in [VarmorPolicy CRD](../config/crds/crd.varmor.org_varmorpolicies.yaml).
+* The VarmorPolicy interface details can be found in [Interface Instructions](interface_instructions).
+* The definition of VarmorPolicy can be found in [VarmorPolicy CRD](https://github.com/bytedance/vArmor/tree/main/config/crds/crd.varmor.org_varmorpolicies.yaml).
 * Explanation of VarmorPolicy/Status:
 
   | Fields | Value | Interpretation |
@@ -67,13 +67,13 @@ If you are using the AppArmor enforcer, follow these steps to uninstall vArmor:
 ### VarmorClusterPolicy
 * Cluster-scoped resource.
 * The VarmorClusterPolicy interface details can be found in [Interface Instructions](interface_instructions.md)
-* The definition of VarmorClusterPolicy can be found in [VarmorClusterPolicy CRD](../config/crds/crd.varmor.org_varmorclusterpolicies.yaml)
+* The definition of VarmorClusterPolicy can be found in [VarmorClusterPolicy CRD](https://github.com/bytedance/vArmor/tree/main/config/crds/crd.varmor.org_varmorclusterpolicies.yaml)
 * VarmorClusterPolicy/Status same as VarmorPolicy/Status
 
 ### ArmorProfile
 * Namespace-scoped resource, consistent with the namespace of the protected object or the namespace of the vArmor components.
 * As an internal interface, used by vArmor only.
-* The definition of VarmorPolicy can be found in [ArmorProfile CRD](../config/crds/crd.varmor.org_armorprofiles.yaml).
+* The definition of VarmorPolicy can be found in [ArmorProfile CRD](https://github.com/bytedance/vArmor/tree/main/config/crds/crd.varmor.org_armorprofiles.yaml).
 * Explanation of ArmorProfile/Status:
 
   | Fields | Value | Interpretation |
