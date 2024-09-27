@@ -5,10 +5,11 @@ import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
 import Link from '@docusaurus/Link';
-
+import { Analytics } from "@vercel/analytics/react"
 function HomepageHeader() {
   return (
     <header className={clsx('hero', styles.heroBanner)}>
+      
       <div className="container">
         <h1 className="hero__title">vArmor</h1>
         <p className="hero__subtitle">
