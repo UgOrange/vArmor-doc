@@ -26,18 +26,18 @@ vArmor was created by the **Elkeid Team** of the endpoint security department at
 ## How vArmor works
 
 ### Architecture
-vArmor primarily consists of two components: the manager and the agent. The manager is responsible for responding to and managing policy objects, while the agent handles the management of enforcers and profiles on Nodes.
+vArmor primarily consists of two components: the Manager and the Agent. The Manager is responsible for responding to and managing policy objects, while the Agent handles the management of enforcers and profiles on Nodes.
 
 ![image](./img/architecture.png)
 
 ### Principle
-* The VarmorPolicy and VarmorClusterPolicy CRs serve as user interfaces.
-* With VarmorPolicy or VarmorClusterPolicy objects, people can harden particular workloads and decide on which enforcers to use to implement them.
+* The [VarmorPolicy](getting_started/usage_instructions#varmorpolicy) and [VarmorClusterPolicy](getting_started/usage_instructions#varmorclusterpolicy) CRs serve as user interfaces.
+* With VarmorPolicy or VarmorClusterPolicy objects, users can harden specific workloads and decide which enforcers and rules to use.
 * The ArmorProfile CR acts as an internal interface used for profile management.
 
 ![image](./img/principle.svg)
 
-When the Manager detects the creation event of a VarmorPolicy or VarmorClusterPolicy object, it generates a corresponding internal object called ArmorProfile. The Agent listens for and responds to this ArmorProfile object, processing the profiles and then reporting the status back to the Manager. When a user creates a workload, the APIServer sends the creation request to the Manager through the admission webhook. The Manager evaluates whether the workload should be hardened. If so, the manager mutates the workload by adding annotations and modifying the securityContext. Finally, the workload's Pod will be scheduled to a Node, and the security context will be set when the container is created.
+When the Manager detects the creation event of a VarmorPolicy or VarmorClusterPolicy object, it generates a corresponding internal object called ArmorProfile. The Agent listens for and responds to this ArmorProfile object, processing the profiles and then reporting the status back to the Manager. When a user creates a workload, the APIServer sends the creation request to the Manager through the admission webhook. The Manager evaluates whether the workload should be hardened. If so, the Manager mutates the workload by adding annotations and modifying the securityContext. Finally, the workload's Pod will be scheduled to a Node, and the security context will be set when the container is created.
 
 ### The Enforcers
 vArmor abstracts AppArmor, BPF, and Seccomp as enforcers. The policy can use them individually or in combination to harden workloads, such as: AppArmorBPF, AppArmorSeccomp, AppArmorBPFSeccomp etc.
@@ -66,7 +66,7 @@ The prerequisites required by different enforcers are as shown in the following 
 
 ## Quick Start
 
-For more configuration options and detailed instructions, please refer to the [usage instructions](usage_instructions). You can refer to the [examples](https://github.com/bytedance/vArmor/tree/main/test/demo) to understand how to use the relevant features and write policies. You can also try using [policy-advisor](policy_advisor) to generate a policy template, and then build the final policy based on it.
+For more configuration options and detailed instructions, please refer to the [getting started guide](getting-started).
 
 ### Step 1. Fetch chart
 ```
@@ -74,6 +74,8 @@ helm pull oci://elkeid-ap-southeast-1.cr.volces.com/varmor/varmor --version 0.5.
 ```
 
 ### Step 2. Install
+The default configuration uses the AppArmor and Seccomp enforcers, and the BPF enforcer is disabled. Please refer to this [document](getting_started/installation#configuring-varmor) for more configuration options.
+
 *You can use the domain `elkeid-cn-beijing.cr.volces.com` inside of the CN region.*
 ```
 helm install varmor varmor-0.5.11.tgz \

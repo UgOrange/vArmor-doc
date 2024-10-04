@@ -23,6 +23,9 @@ helm install varmor varmor-0.5.11.tgz \
     --set image.registry="elkeid-ap-southeast-1.cr.volces.com"
 ```
 
+You can use the domain `elkeid-cn-beijing.cr.volces.com` inside of the CN region.
+
+
 ## Configuring vArmor
 
 vArmor allows you to configure its functionality during installation using the helm command.
