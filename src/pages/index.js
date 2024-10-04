@@ -13,7 +13,7 @@ function HomepageHeader() {
       <div className="container">
         <h1 className="hero__title">vArmor</h1>
         <p className="hero__subtitle">
-          Cloud-native container sandbox system for Kubernetes security
+          Cloud-native container sandbox system for Kubernetes security.
         </p>
         <div className={styles.buttons}>
           <Link
@@ -45,15 +45,15 @@ function HomepageFeatures() {
         <div className="row">
           <Feature
             title="Enhanced Security"
-            description="Leverages Linux technologies like AppArmor, BPF, and Seccomp to isolate containers and reduce kernel attack surfaces."
+            description="Leverages Linux technologies like AppArmor, BPF, and Seccomp to harden containers."
           />
           <Feature
-            title="Kubernetes Native"
-            description="Integrates seamlessly with Kubernetes, providing powerful sandboxing mechanisms through custom CRDs."
+            title="Cloud Native"
+            description="Integrates seamlessly with Kubernetes, providing powerful sandboxing mechanisms through CRDs."
           />
           <Feature
             title="Quick Deployment"
-            description="Deploy vArmor quickly using Helm with built-in security models ready for immediate use."
+            description="Manage vArmor with Helm, and apply policies with built-in rules that are ready to use out of the box."
           />
         </div>
       </div>

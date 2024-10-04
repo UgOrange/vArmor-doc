@@ -1,5 +1,5 @@
 ---
-slug: /development
+slug: /guides/development
 sidebar_position: 4
 ---
 
