@@ -72,20 +72,6 @@ export default function Home() {
         <section className="container">
           <div className="row">
             <div className="col col--12">
-              <h2>Quick Start</h2>
-              <pre>
-                <code>
-                  helm pull oci://elkeid-ap-southeast-1.cr.volces.com/varmor/varmor --version 0.5.11
-                  {'\n'}
-                  helm install varmor varmor-0.5.11.tgz --namespace varmor --create-namespace --set image.registry="elkeid-ap-southeast-1.cr.volces.com"
-                </code>
-              </pre>
-            </div>
-          </div>
-        </section>
-        <section className="container">
-          <div className="row">
-            <div className="col col--12">
               <h2>License</h2>
               <p>
                 vArmor is licensed under Apache 2.0. The eBPF code is located at vArmor-ebpf and is GPL-2.0 licensed.

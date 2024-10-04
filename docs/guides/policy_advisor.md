@@ -1,3 +1,8 @@
+---
+slug: /policy_advisor
+sidebar_position: 3
+---
+
 # Policy Advisor
 This program can help you generate a [`.spec.policy`](https://github.com/bytedance/vArmor/tree/main/docs/interface_instructions.md#spec) template in the EnhanceProtect mode with built-in rules. The template can be a good start to craft the final policy.
 

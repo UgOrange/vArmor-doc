@@ -1,4 +1,9 @@
-# Development Guide
+---
+slug: /development
+sidebar_position: 4
+---
+
+# Development
 ### Step 1. Build the binary
 ```
 // You must rebuild everything if the CRDs or eBPF code were modified
