@@ -1,6 +1,5 @@
----
-sidebar_position: 1
----
+import ThemeImage from '@site/src/components/ThemeImage';
+
 # Introduction
 Learn about vArmor and create your first policy through a Quick Start guide.
 
@@ -28,7 +27,12 @@ vArmor was created by the **Elkeid Team** of the endpoint security department at
 ### Architecture
 vArmor primarily consists of two components: the Manager and the Agent. The Manager is responsible for responding to and managing policy objects, while the Agent handles the management of enforcers and profiles on Nodes.
 
-![image](./img/architecture.svg)
+<ThemeImage 
+  lightSrc="/img/architecture.svg" 
+  darkSrc="/img/architecture-dark.svg" 
+  alt="vArmor Architecture" 
+/>
+
 
 ### Principle
 * The [VarmorPolicy](getting_started/usage_instructions#varmorpolicy) and [VarmorClusterPolicy](getting_started/usage_instructions#varmorclusterpolicy) CRs serve as user interfaces.

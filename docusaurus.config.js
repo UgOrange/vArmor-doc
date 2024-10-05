@@ -79,14 +79,14 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
+          {to: 'index.html', label: 'About', position: 'left'},
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
             label: 'Documentation',
           },
-          
-          //{to: '/blog', label: 'Blog', position: 'left'},
+          // {to: '/blog', label: 'Blog', position: 'left'},
           {
             type: 'localeDropdown',
             position: 'right',
