@@ -24,7 +24,7 @@ vArmor 由字节跳动终端安全团队的 **Elkeid Team** 研发，目前该�
 
 
 ## 架构
-<img src="./img/architecture.png" width="600" />
+<img src="./img/architecture.svg" width="600" />
 
 
 ## 前置条件
