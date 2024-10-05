@@ -82,44 +82,111 @@ helm install varmor varmor-0.5.11.tgz \
 *You can use the domain `elkeid-cn-beijing.cr.volces.com` inside of the CN region.*
 
 ### Step 3. Try with this example
+Create demo namespace.
 ```
-# Create demo namespace
 kubectl create namespace demo
-
-# Create a VarmorPolicy object to enable the AlwaysAllow mode sandbox for Deployments that match the .spec.target.selector
-kubectl create -f test/demo/1-apparmor/vpol-apparmor-alwaysallow.yaml
-
-# View the status of VarmorPolicy & ArmorProfile object
+```
+Create a VarmorPolicy object to enable the **AlwaysAllow mode** for `deployments` that match the `spec.target.selector`.
+```
+cat << EOF | kubectl create -f -
+apiVersion: crd.varmor.org/v1beta1
+kind: VarmorPolicy
+metadata:
+  name: demo-1
+  namespace: demo
+spec:
+  target:
+    kind: Deployment
+    selector:
+      matchLabels:
+        app: demo-1
+  policy:
+    enforcer: AppArmor
+    mode: AlwaysAllow
+EOF
+```
+View the status of VarmorPolicy & ArmorProfile object.
+```
 kubectl get VarmorPolicy -n demo
 kubectl get ArmorProfile -n demo
+```
+Create the target Deployment object.
+```
+cat << EOF | kubectl create -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-1
+  namespace: demo
+  labels:
+    sandbox.varmor.org/enable: "true"
+    app: demo-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-1
+  template:
+    metadata:
+      labels:
+        app: demo-1
+      annotations:
+        # Use this annotation to explicitly disable the protection for the container named c0.
+        # It always takes precedence over the '.spec.target.containers' field.
+        container.apparmor.security.beta.varmor.org/c0: unconfined
+    spec:
+      containers:
+      - name: c0
+        image: debian:10
+        command: ["/bin/sh", "-c", "sleep infinity"]
+        imagePullPolicy: IfNotPresent
+      - name: c1
+        image: debian:10
+        command: ["/bin/sh", "-c", "sleep infinity"]
+        imagePullPolicy: IfNotPresent
 
-# Create the target Deployment object
-kubectl create -f test/demo/1-apparmor/deploy.yaml
-
-# Retrieve the Pod name of the target Deployment object
+EOF
+```
+Retrieve the Pod name of the target Deployment object.
+```
 POD_NAME=$(kubectl get Pods -n demo -l app=demo-1 -o name)
-
-# Execute a command in container c1 to read the secret token
-kubectl exec -n demo $POD_NAME -c c1 -- cat /run/secrets/kubernetes.io/serviceaccount/token
-
-# Update the VarmorPolicy object to prohibit the container c1 from reading the secret token.
-kubectl apply -f test/demo/1-apparmor/vpol-apparmor-enhance.yaml
-
-# Execute a command in container c1 to read the secret token and verify that the reading behavior is prohibited.
-kubectl exec -n demo $POD_NAME -c c1 -- cat /run/secrets/kubernetes.io/serviceaccount/token
-
-# Delete the VarmorPolicy and Deployment objects
-kubectl delete -f test/demo/1-apparmor/vpol-apparmor-alwaysallow.yaml
-kubectl delete -f test/demo/1-apparmor/deploy.yaml
 ```
-
-### Step 4. Uninstall
+Execute a command in container `c1` to read the SA token.
 ```
-helm uninstall varmor -n varmor
+kubectl exec -n demo $POD_NAME -c c1 -- cat /run/secrets/kubernetes.io/serviceaccount/token
+```
+Switch the VarmorPolicy object to **EnhancedProtect mode** to prohibit the container `c1` from reading the secret token.
+```
+cat << EOF | kubectl apply -f -
+apiVersion: crd.varmor.org/v1beta1
+kind: VarmorPolicy
+metadata:
+  name: demo-1
+  namespace: demo
+spec:
+  target:
+    kind: Deployment
+    selector:
+      matchLabels:
+        app: demo-1
+  policy:
+    enforcer: AppArmor
+    mode: EnhanceProtect
+    enhanceProtect:
+      hardeningRules:
+      - disable-cap-privileged
+      attackProtectionRules:
+      - rules:
+        - mitigate-sa-leak
+EOF
+```
+Execute a command in container `c1` to read the SA token and verify that the reading behavior is prohibited.
+```
+kubectl exec -n demo $POD_NAME -c c1 -- cat /run/secrets/kubernetes.io/serviceaccount/token
 ```
 
 ## Demo
-Below is a demonstration of using vArmor to harden a Deployment and defend against CVE-2021-22555. (The exploit is modified from [cve-2021-22555](https://github.com/google/security-research/tree/master/pocs/linux/cve-2021-22555))
+Below is a demonstration of using vArmor to harden a Deployment and defend against CVE-2021-22555 (The exploit is modified from [cve-2021-22555](https://github.com/google/security-research/tree/master/pocs/linux/cve-2021-22555)).
 
 For more demos, please check out our GitHub repository [here](https://github.com/bytedance/vArmor/tree/main/test/demos).
 
