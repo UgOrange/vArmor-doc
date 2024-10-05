@@ -1,9 +1,9 @@
 ---
 sidebar_position: 3
-description: vArmor API Reference Docs.
+description: The interface specification of vArmor.
 ---
 
-# API Reference
+# Interface Specification
 
 ## VarmorPolicySpec / VarmorClusterPolicySpec
 

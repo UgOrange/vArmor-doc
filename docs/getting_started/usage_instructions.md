@@ -62,3 +62,56 @@ You can leverage logging components for collection and configuring alerts. Such 
   |DesiredNumberLoaded|int|The desired number of agents for processing and responding
   |CurrentNumberLoaded|int|The number of agents that have already been processed and responded.
   |Conditions|type=Read<br />Status=False<br />NodeName=XXX<br />Message=YYY|The failed node and error information
+
+## Example
+The following example is for demonstration of functionality only, and should not be considered as recommended policy.
+
+```
+apiVersion: crd.varmor.org/v1beta1
+kind: VarmorPolicy
+metadata:
+  name: deployment-policy
+  namespace: default
+spec:
+  target:
+    kind: Deployment
+    selector:
+      matchLabels:
+        app: nginx
+      matchExpressions:
+      - key: environment
+        operator: In
+        values: [dev, qa]
+  policy:
+    enforcer: AppArmor
+    mode: EnhanceProtect
+    enhanceProtect:
+      hardeningRules:
+      - disable_cap_privileged
+      - disable_cap_net_raw
+      attackProtectionRules:
+      - rules: 
+        - disable-write-etc
+      - rules:
+        - mitigate-sa-leak
+        targets:
+        - "/bin/sh"
+        - "/usr/bin/sh"
+        - "/bin/dash"
+        - "/usr/bin/dash"
+        - "/bin/bash"
+        - "/usr/bin/bash"
+        - "/bin/busybox"
+        - "/usr/bin/busybox"
+```
+
+The policy enables sandbox with **EnhanceProtect mode** for deployments in the default namespace (with `sandbox.varmor.org/enable="true"` and `app=nginx` labels, and an `environment` label value of `dev` or `qa`).
+
+The built-in rules used are as follows:
+- Disable all privileged capabilities (those that can lead to escapes)
+- Disable CAP_NET_RAW capability (Prohibit the use of the AF_PACKET protocol family to create sockets, preventing the construction of link-layer packets and activities like network sniffing.)
+- Prohibit writing to the /etc directory
+- Prohibit shell and its subprocesses from accessing the container's ServiceAccount information
+
+## Demos
+Here are some [demos](https://github.com/bytedance/vArmor/tree/main/test/demos) on how to use vArmor to mitigate vulnerabilities or harden containers with privileged capabilities.

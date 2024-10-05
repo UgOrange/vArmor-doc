@@ -28,7 +28,7 @@ vArmor was created by the **Elkeid Team** of the endpoint security department at
 ### Architecture
 vArmor primarily consists of two components: the Manager and the Agent. The Manager is responsible for responding to and managing policy objects, while the Agent handles the management of enforcers and profiles on Nodes.
 
-![image](./img/architecture.png)
+![image](./img/architecture.svg)
 
 ### Principle
 * The [VarmorPolicy](getting_started/usage_instructions#varmorpolicy) and [VarmorClusterPolicy](getting_started/usage_instructions#varmorclusterpolicy) CRs serve as user interfaces.
@@ -117,3 +117,10 @@ kubectl delete -f test/demo/1-apparmor/deploy.yaml
 ```
 helm uninstall varmor -n varmor
 ```
+
+## Demo
+Below is a demonstration of using vArmor to harden a Deployment and defend against CVE-2021-22555. (The exploit is modified from [cve-2021-22555](https://github.com/google/security-research/tree/master/pocs/linux/cve-2021-22555))
+
+For more demos, please check out our GitHub repository [here](https://github.com/bytedance/vArmor/tree/main/test/demos).
+
+![image](./demos/CVE-2021-22555/demo.gif)
