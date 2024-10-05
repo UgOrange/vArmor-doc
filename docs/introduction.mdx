@@ -39,7 +39,11 @@ vArmor primarily consists of two components: the Manager and the Agent. The Mana
 * With VarmorPolicy or VarmorClusterPolicy objects, users can harden specific workloads and decide which enforcers and rules to use.
 * The ArmorProfile CR acts as an internal interface used for profile management.
 
-![image](./img/principle.svg)
+<ThemeImage 
+  lightSrc="/img/principle.svg" 
+  darkSrc="/img/principle-dark.svg" 
+  alt="vArmor Principle" 
+/>
 
 When the Manager detects the creation event of a VarmorPolicy or VarmorClusterPolicy object, it generates a corresponding internal object called ArmorProfile. The Agent listens for and responds to this ArmorProfile object, processing the profiles and then reporting the status back to the Manager. When a user creates a workload, the APIServer sends the creation request to the Manager through the admission webhook. The Manager evaluates whether the workload should be hardened. If so, the Manager mutates the workload by adding annotations and modifying the securityContext. Finally, the workload's Pod will be scheduled to a Node, and the security context will be set when the container is created.
 

@@ -74,12 +74,14 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
+        title: 'vArmor',
         logo: {
+          
           alt: 'vArmor Logo',
           src: 'img/logo.svg',
         },
         items: [
-          {to: 'index.html', label: 'About', position: 'left'},
+          // {to: 'index.html', label: 'About', position: 'left'},
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
