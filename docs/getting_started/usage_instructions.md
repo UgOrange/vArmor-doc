@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+description: Understand how to use vArmor.
 ---
 # Usage Instructions
 

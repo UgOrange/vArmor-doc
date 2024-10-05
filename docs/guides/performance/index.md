@@ -1,5 +1,5 @@
 ---
-slug: /performance
+slug: /guides/performance
 sidebar_position: 2
 ---
 
@@ -33,3 +33,7 @@ Explanation:
 * When the BPF enforcer is enabled, the Agent requires more memory during startup
 
 ## Performance Test
+
+import DocCardList from '@theme/DocCardList';
+
+<DocCardList />

@@ -1,6 +1,8 @@
 ---
 sidebar_position: 2
+description: Using built-in rules to harden containers and microservices. 
 ---
+
 # The Built-in Rules
 
 **vArmor** supports defining [VarmorPolicy](../../getting_started/usage_instructions#varmorpolicy) or [VarmorClusterPolicy](../../getting_started/usage_instructions#varmorclusterpolicy) objects using built-in rules in **EnhanceProtect mode**. The currently supported built-in rules and categories are shown in the following table. You can also try using the [policy advisor](https://github.com/bytedance/varmor/tools/policy-advisor/tree/main/README.md) to generate a policy template with built-in rules.

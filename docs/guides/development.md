@@ -1,6 +1,7 @@
 ---
 slug: /guides/development
 sidebar_position: 4
+description: How to set up a local development environment.
 ---
 
 # Development

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+description: Measure the performance of the BPF enforcer.
 ---
 # BPF Enforcer Benchmark
 

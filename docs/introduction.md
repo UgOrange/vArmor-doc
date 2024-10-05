@@ -16,9 +16,9 @@ vArmor is a cloud-native container sandbox system. It leverages Linux's [AppArmo
 **vArmor Features:**
 * Cloud-native. vArmor follows the Kubernetes Operator design pattern, allowing users to harden specific workloads by manipulating the [CRD API](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). This approach enables sandboxing of containerized microservices from a perspective closely aligned with business needs.
 * Supports the use of AppArmor, BPF, Seccomp enforcer individually or in combination, enforcing mandatory access control on container file access, process execution, network outbound, syscall, and more.
-* Supports the Allow by Default security model, in which only behaviors explicitly declared will be blocked, thus minimize performance impact and enhancing usability.
+* Supports the Allow-by-Default security model, in which only behaviors explicitly declared will be blocked, thus minimize performance impact and enhancing usability.
 * Supports behavior modeling, and provides protection based on behavior models, meaning only behaviors explicitly declared are permitted.
-* Ready to use out of the box. vArmor includes multiple **built-in rules** for direct use.
+* Ready to use out of the box. vArmor includes multiple built-in rules for direct use.
 
 vArmor was created by the **Elkeid Team** of the endpoint security department at ByteDance. And the project is still in active development.
 
@@ -39,18 +39,19 @@ vArmor primarily consists of two components: the Manager and the Agent. The Mana
 
 When the Manager detects the creation event of a VarmorPolicy or VarmorClusterPolicy object, it generates a corresponding internal object called ArmorProfile. The Agent listens for and responds to this ArmorProfile object, processing the profiles and then reporting the status back to the Manager. When a user creates a workload, the APIServer sends the creation request to the Manager through the admission webhook. The Manager evaluates whether the workload should be hardened. If so, the Manager mutates the workload by adding annotations and modifying the securityContext. Finally, the workload's Pod will be scheduled to a Node, and the security context will be set when the container is created.
 
-### The Enforcers
+### Key Terms
+#### The Enforcer
 vArmor abstracts AppArmor, BPF, and Seccomp as enforcers. The policy can use them individually or in combination to harden workloads, such as: AppArmorBPF, AppArmorSeccomp, AppArmorBPFSeccomp etc.
 
 You can specify the enforcer through the `spec.policy.enforcer` field of [VarmorPolicy](getting_started/usage_instructions#varmorpolicy) or [VarmorClusterPolicy](getting_started/usage_instructions#varmorclusterpolicy) objects. 
 
-### The Policy Modes
-The vArmor policy can operate in five modes: **AlwaysAllow, RuntimeDefault, EnhanceProtect, BehaviorModeling and DefenseInDepth**. This flexibility allows it to meet the needs of different scenarios.
+#### The Policy Mode
+The vArmor policy can operate in five modes: *AlwaysAllow, RuntimeDefault, EnhanceProtect, BehaviorModeling and DefenseInDepth*. This flexibility allows it to meet the needs of different scenarios.
 
 For more information, please refer to the [Policy Modes](./guides/policies_and_rules/policy_modes).
 
-### The Built-in and Custom Rules
-When the policy is running in **EnhanceProtect** mode, [Built-in Rules](./guides/policies_and_rules/built_in_rules) and [Custom Rules](./guides/policies_and_rules/custom_rules) can be used to harden the container. The policy operates with the **Allow by Default** security model, meaning only behaviors explicitly declared will be blocked. This approach minimizes performance impact while enhancing usability.
+#### The Built-in and Custom Rule
+When the policy is running in **EnhanceProtect** mode, [Built-in Rules](./guides/policies_and_rules/built_in_rules) and [Custom Rules](./guides/policies_and_rules/custom_rules) can be used to harden the container. The policy operates with the **Allow-by-Default** security model, meaning only behaviors explicitly declared will be blocked. This approach minimizes performance impact while enhancing usability.
 
 
 ## Prerequisites
@@ -65,23 +66,20 @@ The prerequisites required by different enforcers are as shown in the following 
 
 
 ## Quick Start
-
-For more configuration options and detailed instructions, please refer to the [getting started guide](getting-started).
-
 ### Step 1. Fetch chart
 ```
 helm pull oci://elkeid-ap-southeast-1.cr.volces.com/varmor/varmor --version 0.5.11
 ```
 
 ### Step 2. Install
-The default configuration uses the AppArmor and Seccomp enforcers, and the BPF enforcer is disabled. Please refer to this [document](getting_started/installation#configuring-varmor) for more configuration options.
+The default configuration enables the AppArmor and Seccomp enforcers. Please refer to the documentation for more [configuration options](getting_started/installation#configuration).
 
-*You can use the domain `elkeid-cn-beijing.cr.volces.com` inside of the CN region.*
 ```
 helm install varmor varmor-0.5.11.tgz \
     --namespace varmor --create-namespace \
     --set image.registry="elkeid-ap-southeast-1.cr.volces.com"
 ```
+*You can use the domain `elkeid-cn-beijing.cr.volces.com` inside of the CN region.*
 
 ### Step 3. Try with this example
 ```

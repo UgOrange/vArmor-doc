@@ -1,6 +1,8 @@
 ---
 sidebar_position: 3
+description: Customize access control rules in EnhanceProtect mode.
 ---
+
 # The Custom Rules
 vArmor allows users to customize access control rules in [VarmorPolicy](../../getting_started/usage_instructions#varmorpolicy) or [VarmorClusterPolicy](../../getting_started/usage_instructions#varmorclusterpolicy) objects in **EnhanceProtect mode** based on the enforcer syntax.
 
