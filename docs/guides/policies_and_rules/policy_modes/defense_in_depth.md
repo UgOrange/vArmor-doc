@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+description: Protect the workloads based on the ArmorProfileModel object.
 ---
 
 # DefenseInDepth Mode [Experimental]

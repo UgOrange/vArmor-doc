@@ -2,8 +2,10 @@
 slug: /guides/policies_and_rules/policy_modes
 sidebar_position: 1
 ---
+
 # The Policy Modes
 
+## Overview
 The modes can be specified through the `spec.policy.mode` field of [VarmorPolicy](../../getting_started/usage_instructions#varmorpolicy) or [VarmorClusterPolicy](../../getting_started/usage_instructions#varmorclusterpolicy) objects. The modes supported by different enforcers are shown in the following table.
 
 
@@ -19,3 +21,8 @@ The modes can be specified through the `spec.policy.mode` field of [VarmorPolicy
 Note:
 * vArmor policy supports dynamic switching of running modes (limited to AlwaysAllow, EnhanceProtect, RuntimeDefault, DefenseInDepth) and updating sandbox rules without having to restart the workloads. However, when using the **Seccomp enforcer**, the workload must be restarted for changes to the **Seccomp Profile** to take effect.
 * vArmor supports modifying policies to add new enforcers, but does not support removing enforcers that have been set. In addition, newly added enforcers only take effect for newly created Workloads.
+
+## Experimentals
+import DocCardList from '@theme/DocCardList';
+
+<DocCardList />
