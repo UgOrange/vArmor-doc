@@ -50,6 +50,7 @@ vArmor allows you to configure its functionality during installation using the h
 | `--set behaviorModeling.enabled=true` | Default: disabled. Experimental feature. Currently, only the AppArmor/Seccomp enforcer supports the BehaviorModeling mode. Please refer to the [BehaviorModeling Mode](behavior_modeling.md) for more details.
 
 ## Upgrade
+
 You can use helm commands to upgrade, rollback, and perform other operations.
 ```
 helm upgrade varmor varmor-0.5.11.tgz \
@@ -76,6 +77,6 @@ If you are using the AppArmor & Seccomp enforcer, please follow these steps to u
   * Delete the VarmorPolicy/VarmorClusterPolicy object
   * When the workloads' type is Deployment, StatefulSet, or DaemonSet,
     * If you have enabled `--restartExistWorkloads`, you don't need to perform any additional steps.
-    * If `--restartExistWorkloads` is not enabled, you will need to manually remove the annotations and seccompProfiles added by vArmor from the corresponding workloads.
-  * When the workloads' type is Pod, you will need to recreate the Pod (make sure there are no annotations and seccompProfiles added by vArmor in the Pod).
+    * If `--restartExistWorkloads` is not enabled, you will need to manually remove the annotations, seccompProfiles and appArmorProfiles added by vArmor.
+  * When the workloads' type is Pod, you will need to recreate the Pod (make sure there are no annotations, seccompProfiles and appArmorProfiles added by vArmor).
 * Uninstall vArmor using Helm.

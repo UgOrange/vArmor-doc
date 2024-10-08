@@ -5,6 +5,7 @@ description: Understand how to use vArmor.
 # Usage Instructions
 
 ## Interface Operations
+
 vArmor provides API interfaces through [VarmorPolicy](usage_instructions#varmorpolicy) and [VarmorClusterPolicy](usage_instructions#varmorclusterpolicy) CR. The VarmorClusterPolicy CR have higher priority than VarmorPolicy CR. It means prioritizing the use of VarmorClusterPolicy objects to protect matched workloads. You can create, modify, and delete VarmorPolicy or VarmorClusterPolicy objects in the cluster to protect specified workloads.
 
 vArmor supports performing a rolling restart of existing workloads that meet the matching conditions when a VarmorPolicy or VarmorClusterPolicy object is created or deleted. This rolling restart enables or disables protection for those workloads.
@@ -15,19 +16,22 @@ The following constraints and usage requirements must also be observed:
 * After creating a VarmorPolicy or VarmorClusterPolicy object, you can dynamically switch the policy mode and update rules by updating `spec.policy`. However, switching from **BehaviorModeling mode** to other modes is not supported, and vice versa (Note: Switching policy mode and updating rules does not require triggering a rolling restart of workloads).
 
 ## State Management
+
 You can check the status of VarmorPolicy or VarmorClusterPolicy object to get information about the processing stage, error messages, and the processing status of AppArmor/BPF/Seccomp Profiles.
 
 You can check the `profileName` field by examining the status of VarmorPolicy or VarmorClusterPolicy object. Afterwards, you can look at the corresponding ArmorProfile object with the same name to obtain the status and error information when the Agent processes the Profile.
 
 ## Log Management
+
 vArmor's manager and agent components currently log messages only to standard output.
 
 You can leverage logging components for collection and configuring alerts. Such as `\* | select count(*) as ErrCount where __content__ LIKE 'E%'`
 
 ## System Interface
+
 ### VarmorPolicy
 * Namespace-scoped resource, consistent with the namespace of the protected object.
-* The VarmorPolicy interface details can be found in [Interface Instructions](interface_instructions).
+* The VarmorPolicy interface details can be found in [Interface Specification](interface_specification).
 * The definition of VarmorPolicy can be found in [VarmorPolicy CRD](https://github.com/bytedance/vArmor/tree/main/config/crds/crd.varmor.org_varmorpolicies.yaml).
 * Explanation of `VarmorPolicy/Status`:
 
@@ -47,7 +51,7 @@ You can leverage logging components for collection and configuring alerts. Such 
 
 ### VarmorClusterPolicy
 * Cluster-scoped resource.
-* The VarmorClusterPolicy interface details can be found in [Interface Instructions](interface_instructions)
+* The VarmorClusterPolicy interface details can be found in [Interface Specification](interface_specification)
 * The definition of VarmorClusterPolicy can be found in [VarmorClusterPolicy CRD](https://github.com/bytedance/vArmor/tree/main/config/crds/crd.varmor.org_varmorclusterpolicies.yaml)
 * `VarmorClusterPolicy/Status` same as `VarmorPolicy/Status`
 
@@ -64,6 +68,7 @@ You can leverage logging components for collection and configuring alerts. Such 
   |Conditions|type=Read<br />Status=False<br />NodeName=XXX<br />Message=YYY|The failed node and error information
 
 ## Example
+
 The following example is for demonstration of functionality only, and should not be considered as recommended policy.
 
 ```
@@ -114,4 +119,5 @@ The built-in rules used are as follows:
 - Prohibit shell and its subprocesses from accessing the container's ServiceAccount information
 
 ## Demos
+
 Here are some [demos](https://github.com/bytedance/vArmor/tree/main/test/demos) on how to use vArmor to mitigate vulnerabilities or harden containers with privileged capabilities.

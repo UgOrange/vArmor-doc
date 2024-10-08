@@ -7,7 +7,7 @@ sidebar_position: 2
 
 ## Impact Factors
 
-The factors affecting performance for vArmor's user-space and kernel-space components are as shown in the below
+The factors affecting performance for vArmor's user-space and kernel-space components are as shown in the below.
 
 | Factor         | Explanation |
 | -------------- | ----------- |
